@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+ <%- include("header.ejs") %>
+ <div class="homepage">
+  <h3>الكاش: <%= cash.toLocaleString('en-US',) %></h3>
+  <h3>تكلفة الاجهزة التي تم شراؤها : <%=totalDevicesPaidAmount.toLocaleString('en-US',)%></h3>
+  <h3>مبلغ الاجهزة التي تم بيعها : <%=totalDevicesSellAmountNumber.toLocaleString('en-US',)%></h3>
+  <h3>عدد الاجهزة التي تم شراؤها : <%=totalDevicesPaid %></h3>
+  <h3>عدد الاجهزة التي تم بيعها : <%=totalDevicesSale %></h3>
+  <h3>    الفوائد : <%=totalBenefit.toLocaleString('en-US',) %></h3>
+  <h3> النسبة المئوية  للفوائد : <%=totalBenefitPearson %></h3>
+  <h3>رأس مال الأجهزة المتواجدة في المحل  : <%=totalDevicesPaidAmountNumberInventory.toLocaleString('en-US',)%></></h3> 
+  <h3>عدد  الاجهزة  المتوفرة حاليا في المحل : <%=totalDevicesPaidInventory%></h3>
+  </div>
+</body>
+</html>

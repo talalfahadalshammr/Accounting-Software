@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include("header.ejs") %>    
+   <table style="margin-top: 80px;" >
+  <tr>
+    <th>م</th>
+    <th>رقم الجهاز </th>
+    <th>اسم الجهاز </th>
+    <th>سعر الشراء  </th>
+    <th>تاريخ الشراء  </th>
+    <th>وقت الشراء   </th>
+  </tr>
+
+    
+ <% for(let i =0 ; i< dataInventory.length ;i++) { %>
+
+
+<tr>
+  <td><%= i + 1 %></td>
+<td><%= dataInventory[i].deviceID %> </td>
+<td><%= dataInventory[i].deviceName %></td>
+<td><%= dataInventory[i].deviceAmount %></td>
+<td><%= dataInventory[i].dateOfPaid %></td>
+<td><%= dataInventory[i].timeOfPaid %></td>
+</tr>
+ <%}%>
+   </table>
+   <footer style="position: fixed; width: 100%; top:94%; height: 50px;background-color:rgba(42, 97, 42, 0.642) ;">
+  <div style="display: flex; justify-content: space-around;">
+  <h4>رأس مال الأجهزة المتواجدة في المحل  : <span style="color:whitesmoke;"><%=totalDevicesPaidAmountNumberInventory.toLocaleString('en-US',)%></span></h4> 
+  <h4>عدد  الاجهزة  المتوفرة حاليا في المحل : <span style="color: whitesmoke;"><%=totalDevicesPaidInventory%></h4>
+  </div>
+</footer>   
+</body>
+</html>

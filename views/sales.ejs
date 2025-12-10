@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<%- include("header.ejs") %>
+<div id="table" style="display: block;">
+<button onclick="showformCheck()" style="width: 140vh; margin-right: 16.3vh; margin-top: 80px;">
+    إضافة جهاز
+</button>
+
+   <table >
+  <tr>
+   <th>م</th>
+    <th>رقم الجهاز </th>
+    <th>اسم الجهاز </th>
+    <th>سعر الشراء  </th>
+    <th>سعر البيع  </th>
+    <th>الفايدة</th>
+    <th>تاريخ الشراء  </th>
+    <th>وقت الشراء   </th>
+    <th>تاريخ البيع  </th>
+    <th>وقت البيع   </th>
+    <th>تعديل / حذف   </th>
+  </tr>
+    <%for(let i =0 ; i<dataSales.length ;i++){ %>
+  <tr>
+   <td><%= i+1  %></td>
+   <td><%=dataSales[i].deviceID %></td>
+   <td><%=dataSales[i].deviceName %></td>
+   <td><%=dataSales[i].deviceAmount %></td>
+   <td><%=dataSales[i].deviceAmountSell %></td>
+   <td><%=dataSales[i].deviceBenefit %></td>
+   <td><%=dataSales[i].dateOfPaid %></td>
+   <td><%=dataSales[i].timeOfPaid %></td>
+   <td><%=dataSales[i].dateOfSell %></td>
+   <td><%=dataSales[i].timeOfSell %></td>
+   <td><button onclick="editSell(  
+      ' <%=dataSales[i].deviceID %>',
+   '<%=dataSales[i].deviceName %>',
+   ' <%=dataSales[i].deviceAmount %>',
+   '<%=dataSales[i].deviceAmountSell %>',
+   ' <%=dataSales[i].deviceBenefit %>',
+   '<%=dataSales[i].dateOfPaid %>',
+   '<%=dataSales[i].timeOfPaid %>',
+   '<%=dataSales[i].dateOfSell %>',
+   '<%=dataSales[i].timeOfSell %>',)" >تعديل</button>
+
+   <button onclick="delSell('<%=dataSales[i].deviceID %>')">حذف</button></td>
+  </tr>
+  <%}%>
+  </table>
+
+</div>
+<form action="salesCheck" method="post" id="form-check" style="display: none;">
+    <h5>فضلاً ادخل رقم الجهاز المراد بيعه</h5>
+    <input type="number" name="deviceIDCheck" id="deviceIDCheck">
+    <input type="submit" value="ادخل">
+    <input type="button" value="إلغاء" onclick="formCansel()">
+</form>
+
+<form action="sales" id="salesForm" method="post" style="display: none;">
+    <label>رقم الجهاز</label>
+    <input type="text" id="deviceIDShow" readonly name="deviceIDSale" >
+    
+    <label>اسم الجهاز</label>
+    <input type="text" id="deviceName" name="deviceName" readonly>
+    
+    <label>تكلفة الجهاز </label>
+    <input type="text" id="deviceAmount" name="deviceAmount" readonly>
+    <label>سعر بيع الجهاز </label>
+    <input type="number" id="deviceAmountSell" name="deviceAmountSell" >
+    <input type="hidden" name="timeOfPaid" id="timeOfPaid">
+    <input type="hidden" name="dateOfPaid" id="dateOfPaid">
+    <input type="submit" value="ادخل">
+    <input type="button" value="إلغاء" onclick="formCansel()">
+</form>
+
+
+<form action="salesEdit" id="salesFormEdit" method="post" style="display: none;">
+    <label>رقم الجهاز</label>
+    <input type="text" id="deviceIDShowSell" readonly name="deviceIDSaleEdit" >
+    
+    <label>اسم الجهاز</label>
+    <input type="text" id="deviceNameSell" name="deviceName" readonly>
+    
+    <label>تكلفة الجهاز </label>
+    <input type="text" id="deviceAmountEdit" name="deviceAmountEdit" readonly>
+    <label>سعر بيع الجهاز </label>
+    <input type="number" id="deviceAmountSellEdit" name="deviceAmountSellEdit" >
+    <input type="hidden" name="timeOfPaid" id="timeOfPaid">
+    <input type="hidden" name="dateOfPaid" id="dateOfPaid">
+    <input type="hidden" name="deviceBinftEdit" id="deviceBinftEdit">
+    <input type="submit" value="تعديل">
+    <input type="button" value="إلغاء" onclick="formCansel()">
+</form>
+
+
+
+
+
+<form action="delSell" id="delFrom" method="post" style="display: none;">
+  <input type="hidden" id="deviceIDDel" name="deviceIDDelSell">
+ <h5>هل أنت متأكد من أنك تريد حذف الجهاز ؟ </h5>
+<input type="submit" value="حذف "> 
+<input type="button" value="إلغاء" onclick="formCansel()">
+</form>
+
+
+
+
+
+
+
+
+
+<footer style="position: fixed; width: 100%; top:94%; height: 50px;background-color:rgba(42, 97, 42, 0.642) ;">
+  <div style="display: flex; justify-content: space-around;">
+  <h4>الكاش : <span style="color: whitesmoke;"><%= cash.toLocaleString('en-US',)%> </span></h4>
+  <h4>عدد الاحهزة التي تم بيعها : <span style="color:whitesmoke;"><%=totalDevicesSale%></span></h4> 
+  <h4>الفوائد     : <span style="color:whitesmoke;"><%= totalBenefit.toLocaleString('en-US',)%></span></h4> 
+  <h4>النسبة المئوية للفوائد    : <span style="color:whitesmoke;"><%= totalBenefitPearson%></span></h4> 
+  <h4>مبلغ البيع الإجمالي : <span style="color: whitesmoke;"><%=totalDevicesSellAmountNumber.toLocaleString('en-US',)%></h4>
+  </div>
+</footer>   
+
+
+
+
+
+
+
+
+
+
+
+<script>
+const dataInventory = <%- JSON.stringify(dataInventory) %>;
+
+function showformCheck() {
+    document.getElementById("form-check").style.display = 'block';
+    document.body.style.background = "rgba(0,0,0,0.4)";
+}
+
+function formCansel() {
+    document.getElementById("form-check").style.display = 'none';
+    document.getElementById("salesForm").style.display = 'none';
+    document.getElementById("delFrom").style.display = 'none';
+    document.body.style.background = "white";
+        document.getElementById('salesFormEdit').style.display = 'none'
+          document.getElementById('table').style.display = 'block'
+
+}
+
+document.getElementById("form-check").addEventListener("submit", function(e){ 
+   e.preventDefault()
+    let enteredID = document.getElementById("deviceIDCheck").value;
+    let d = dataInventory.find(item => item.deviceID === enteredID);
+    if (d) {
+        document.getElementById("salesForm").style.display = 'block';
+        document.getElementById("form-check").style.display = 'none';
+        document.body.style.background = "white";
+        document.getElementById("deviceIDShow").value = d.deviceID;
+        document.getElementById("deviceName").value = d.deviceName;
+        document.getElementById("deviceAmount").value = d.deviceAmount;
+        document.getElementById("dateOfPaid").value = d.dateOfPaid;
+        document.getElementById("timeOfPaid").value = d.timeOfPaid;
+    } else {
+        alert("رقم الجهاز غير موجود!");
+    }
+});
+function delSell(deviceIDDel){
+      document.getElementById('table').style.display = 'none'
+      document.getElementById('delFrom').style.display = 'block'
+        document.body.style.background = "rgba(0,0,0, 0.4)"
+       document.getElementById("delFrom").style.position = 'fixed'
+      document.getElementById('deviceIDDel').value= deviceIDDel;
+    }
+ function editSell(deviceIDSale,deviceName,deviceAmount,deviceAmountSell,deviceBinft){
+     document.getElementById('salesFormEdit').style.display = 'block'
+        document.body.style.background = "rgba(0,0,0, 0.4)"
+       document.getElementById("delFrom").style.position = 'fixed'
+      document.getElementById('deviceIDShowSell').value= deviceIDSale;
+      document.getElementById('deviceNameSell').value= deviceName;
+      document.getElementById('deviceAmountEdit').value= deviceAmount;
+      document.getElementById('deviceAmountSellEdit').value= deviceAmountSell;
+      document.getElementById('deviceBinftEdit').value= deviceBinft;
+    }
+ 
+</script>
+
+
+</body>
+</html>

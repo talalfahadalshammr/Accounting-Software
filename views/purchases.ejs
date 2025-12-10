@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id="overlay" style="display: block;">
+     <%- include("header.ejs") %>
+   
+      <button id="btn" onclick="showform()" style="width: 140vh; margin-right: 16.3vh; margin-top: 80px;">إضافة جهاز </button>
+   <table  id="table">
+  <tr>
+    <th>م</th>
+    <th>رقم الجهاز </th>
+    <th>اسم الجهاز </th>
+    <th>سعر الشراء  </th>
+    <th>تاريخ الشراء  </th>
+    <th>وقت الشراء   </th>
+    <th>تعديل / حذف   </th>
+  
+
+  </tr>
+  <%  for (let i = 0 ; i<dataPurchases.length;i++){ %>
+    
+ 
+  <tr>
+    <td><%=i+1%></td>
+    <td><%= dataPurchases[i].deviceID%></td>
+    <td><%=dataPurchases[i].deviceName  %></td>
+    <td><%=dataPurchases[i].deviceAmount%></td>
+    <td><%=dataPurchases[i].dateOfPaid  %></td>
+    <td><%=dataPurchases[i].timeOfPaid %></td>
+
+    <td style="display:flex; gap:10px; justify-content: center;">
+    <button     onclick="edit(
+                    '<%= dataPurchases[i].deviceID %>',
+                    '<%= dataPurchases[i].deviceName %>',
+                    '<%= dataPurchases[i].deviceAmount %>',
+                    '<%= dataPurchases[i].sellerPhone %>',
+                    '<%= dataPurchases[i].sellerID %>',
+                    '<%= dataPurchases[i].sellerName %>'
+                )">  تعديل </button> 
+
+      <button onclick="del(
+        '<%= dataPurchases[i].deviceID %>',
+        '<%=dataPurchases[i].deviceAmount %>'
+        )">حذف</button></td>
+  
+    </tr>
+ <% } %>
+
+   </table>
+
+   <form action="purchases" method="post" id="form-pruchases" style="display: none;">
+<label for="">اسم الحهاز </label>
+<input type="text" name="deviceName">
+
+<label for="">سعر الحهاز </label>
+<input type="number" name="devicePrice">
+
+<input type="submit" value="ادخل "> 
+<input type="button" value="إلغاء" onclick="formCansel()">
+   </form>
+      </div>
+    
+
+
+<form action="edit" id="editForm" method="post" style="display: none;">
+    <input type="hidden"  id='deviceID' name="deviceID" >
+<label for="">اسم الحهاز </label>
+<input type="text" id="deviceName" name="deviceNameEdit" >
+
+<label for="">سعر الحهاز </label>
+<input type="number" name="devicePriceEdit" id="devicePrice">
+<input type="submit" value="تعديل "> 
+<input type="button" value="إلغاء" onclick="formCansel()">
+</form>
+<form action="del" id="delFrom" method="post" style="display: none;">
+  <input type="hidden" id="deviceIDDel" name="deviceIDDel">
+  <input type="hidden"  id="devicePriceDeleleet" name="devicePriceDeleleet">
+ <h5>هل أنت متأكد من أنك تريد حذف الجهاز ؟ </h5>
+<input type="submit" value="حذف "> 
+<input type="button" value="إلغاء" onclick="formCansel()">
+</form>
+
+<footer style="position: fixed; width: 100%; top:94%; height: 50px;background-color:rgba(42, 97, 42, 0.642) ;">
+  <div style="display: flex; justify-content: space-around;">
+  <h4>الكاش : <span style="color: whitesmoke;"><%= cash.toLocaleString('en-US',) %> </span></h4>
+  <h4>عدد الاحهزة التي تم شراؤها : <span style="color:whitesmoke;"><%=totalDevicesPaid%></span></h4> 
+  <h4>سعر الشراء الإجمالي : <span style="color: whitesmoke;"><%=totalDevicesPaidAmount.toLocaleString('en-US',)%></h4>
+  </div>
+</footer>   
+</div>  
+  <script>
+    function showform(){
+        document.getElementById("table").style.display='none'
+        document.getElementById("btn").style.display='none'
+      document.getElementById("form-pruchases").style.display = 'block'
+      document.getElementById("form-pruchases").style.position = 'fixed'
+      document.body.style.background = "rgba(0,0,0, 0.4)"
+    
+      
+    }
+    function formCansel(){
+      document.getElementById("form-pruchases").style.display = 'none'
+      document.body.style.background = "rgba(0,0,0, 0)"
+       document.getElementById('editForm').style.display = 'none'
+       document.getElementById('delFrom').style.display = 'none'
+   
+    }
+    function edit(deviceID,deviceName,deviceAmount,sellerPhone,sellerID,sellerName){
+    document.getElementById('editForm').style.display = 'block'
+     document.getElementById("form-pruchases").style.position = 'fixed'
+     document.getElementById('deviceID').value=deviceID;
+     document.getElementById('deviceName').value=deviceName;
+     document.getElementById('devicePrice').value=deviceAmount;
+     document.getElementById('sellerPhone').value=sellerPhone;
+     document.getElementById('sellerID').value=sellerID;
+     document.getElementById('sellerName').value=sellerName;
+      document.body.style.background = "rgba(0,0,0, 0.4)"
+      
+    }function del(deviceIDDel,deviceAmountDel){
+      document.getElementById('delFrom').style.display = 'block'
+        document.body.style.background = "rgba(0,0,0, 0.4)"
+       document.getElementById("delFrom").style.position = 'fixed'
+      document.getElementById('deviceIDDel').value= deviceIDDel;
+      document.getElementById('devicePriceDeleleet').value = deviceAmountDel;
+    }
+  </script>
+</body>
+</html>

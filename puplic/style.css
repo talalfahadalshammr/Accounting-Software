@@ -1,0 +1,91 @@
+body{
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+      direction: rtl;
+    text-align: right;
+    font-family: "Tahoma", "Arial", sans-serif;
+
+}
+header{
+    padding: 5px;
+    margin-top: 0;
+    position: fixed;
+    inset: 0 0px 680px;
+    display: inline-flexbox;
+    background-color: rgba(42, 97, 42, 0.642);
+}
+table{
+    text-align:right;
+    width: 140vh;
+    margin-right: 16.3vh;
+    margin-top: 8px;
+    margin-bottom: 50px;
+    text-align: center;
+    background-color: black;
+    border: 0px;
+    overflow:visible;
+    border-collapse: collapse;
+}
+th{
+    background-color: rgb(16, 22, 16);
+    padding: 15px;
+    color: whitesmoke;
+}
+tr{
+    background-color: rgb(255, 255, 255)     ;
+}tr:nth-of-type(odd){
+    background-color:lightgreen
+}
+tr:last-of-type{
+    border-bottom: 2px solid rgb(17, 18, 17);
+}
+#form-pruchases , #editForm , #delFrom ,#form-check,#salesForm,#salesFormEdit{
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    width: 50vh;
+    height: 50vh;
+    padding: 5px;
+    display: flex;
+    flex-direction: column; /* vertical */
+    margin-bottom: 15px;    
+    background-color: rgba(42, 97, 42, 0.782);
+    justify-content: center;
+    align-self:center;
+}#form-pruchases label, #editForm label ,#delFrom h4, #salesForm label ,#salesFormEdit label{
+    padding: 15px;
+    margin: 30px;
+}#form-pruchases input , #editForm input ,#salesForm input ,#salesFormEdit input{
+    padding: 5px;
+    margin: 3px;
+}#delFrom{
+    display: flex;
+    justify-content: center;
+    width: 40vh;
+    height: 15vh;
+    box-shadow: rgba(42, 97, 42, 0.642);
+    border-color: black;
+    border-radius: 10px;
+}
+#delFrom input{
+display: inline; justify-self: flex-end;
+}
+li{
+    list-style: none;
+    display: inline;
+    padding: 13px
+}
+nav a{
+    background-color: rgb(255, 255, 255);
+    padding: 12px;
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+}
+nav a:hover{
+    background-color: rgb(229, 199, 160);
+ 
+}.homepage{
+    margin-top:7%;
+    margin-right:5%;
+}
